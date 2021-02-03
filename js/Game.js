@@ -9,7 +9,10 @@ class Game {
         this.activePhrase = null;
     }
     startGame () {
-
+        const startDiv = document.getElementById('overlay');
+        startDiv.style.display = 'none';
+        this.activePhrase = this.getRandomPhrase();
+        this.activePhrase.addPhraseToDisplay();
     }
     getRandomPhrase () {
         let randomPhrase = this.phrases[Math.floor(Math.random() * this.phrases.length)];
