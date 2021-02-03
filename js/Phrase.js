@@ -7,7 +7,17 @@
         this.phrase = phrase.toLowerCase();
     }
     addPhraseToDisplay () {
-
+        const divElement = document.getElementById('phrase');
+        const ulElement = divElement.firstElementChild;
+        for (let i = 0; i < this.phrase.length; i++) {
+            if (/[a-z]/.test(this.phrase.charAt(i))) {
+                let li = `<li class="hide letter ${this.phrase.charAt(i)}">${this.phrase.charAt(i)}</li>`;
+                ulElement.insertAdjacentHTML('beforeend', li);
+            } else {
+                let li = `<li class="space"> </li>`;
+                ulElement.insertAdjacentHTML('beforeend', li);
+            }
+        };
     }
     checkLetter () {
 
