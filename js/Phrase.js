@@ -19,10 +19,24 @@
             }
         };
     }
-    checkLetter () {
-
+    checkLetter (letter) {
+        const divElement = document.getElementById('phrase');
+        const liPhrases = divElement.firstElementChild.children;
+        for (let i = 0; i < liPhrases.length; i++) {
+            if (letter.textContent === liPhrases[i].textContent) {
+               return true;
+            }
+        };
     }
-    showMatchedLetter () {
-
+    showMatchedLetter (letter) {
+        const divElement = document.getElementById('phrase');
+        const liPhrases = divElement.firstElementChild.children;
+        for (let i = 0; i < liPhrases.length; i++) {
+            if (letter.textContent === liPhrases[i].textContent) {
+               liPhrases[i].className = 'show';
+            }
+        };
     }
- }
+}
+
+ 

@@ -25,8 +25,14 @@ class Game {
 
     }
     checkForWin () {
-
-    }
+        const solutionLength = this.activePhrase.phrase.length;
+        const selectedLength = document.querySelectorAll('.show').length + document.querySelectorAll('.space').length
+        if (solutionLength === selectedLength) {
+            return true;
+        } else{
+            return false;
+        }
+}
     gameOver () {
 
     }
@@ -40,4 +46,4 @@ class Game {
         ];
         return phrases;
     }
- }
+}
