@@ -22,7 +22,12 @@ class Game {
 
     }
     removeLife () {
-
+        let currentLife = document.querySelector("img[src='images/liveHeart.png']");
+        currentLife.src = 'images/lostHeart.png';
+        this.missed++;
+            if (this.missed === 5) {
+                this.gameOver();
+            }
     }
     checkForWin () {
         const solutionLength = this.activePhrase.phrase.length;
@@ -34,7 +39,16 @@ class Game {
         }
 }
     gameOver () {
-
+        const startDiv = document.getElementById('overlay');
+        let gameOverMessage = startDiv.firstElementChild.nextElementSibling;
+        startDiv.style.display = '';
+            if (game.checkForWin()) {
+                gameOverMessage.textContent = 'Congratulations! You correctly guessed the phrase!';
+                startDiv.classList = 'win';
+            } else {
+                gameOverMessage.textContent = 'Sorry, You ran out of lives. Better luck next time!';
+                startDiv.classList = 'lose';
+            }
     }
     createPhrases () {
         const phrases = [
