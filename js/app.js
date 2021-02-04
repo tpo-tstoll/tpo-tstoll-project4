@@ -3,18 +3,15 @@
  * app.js */
 
 let game;
-const keys = document.getElementById('qwerty');
-
 
  document.getElementById('btn__reset').addEventListener('click', () => {
-    game = new Game();
-    game.startGame();
+   game = new Game();
+   game.resetDisplay();
+   game.startGame();
  })
 
- keys.addEventListener('click', (e) => {
+ document.getElementById('qwerty').addEventListener('click', (e) => {
      if (e.target.className === 'key') {
-/*         game.activePhrase.showMatchedLetter(e.target);
-        game.checkForWin(); */
         game.handleInteraction(e.target);
      }
  })

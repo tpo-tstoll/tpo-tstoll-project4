@@ -26,7 +26,7 @@ class Game {
             if (game.checkForWin()) {
                 game.gameOver();
             }
-        } else if (this.activePhrase.checkLetter(keySelected) !== true) {
+        } else if (this.activePhrase.checkLetter(keySelected) === false) {
             keySelected.className = 'wrong';
             game.removeLife();
         }
@@ -69,5 +69,21 @@ class Game {
             new Phrase('houston we have a problem')
         ];
         return phrases;
+    }
+    resetDisplay () {
+        const divElement = document.getElementById('phrase');
+        const liElements = divElement.firstElementChild.children;
+        const keys = document.querySelectorAll('div.keyrow > button');
+        let livesLost = document.querySelectorAll("img[src='images/lostHeart.png']");
+        for (let i = 0; i < liElements.length; i+1) {
+            liElements[i].remove();
+        }
+        for (let i = 0; i < keys.length; i++) {
+            keys[i].className = 'key';
+            keys[i].disabled = false;
+        }
+        for (let i = 0; i < livesLost.length; i++) {
+            livesLost[i].src = 'images/liveHeart.png';
+        }
     }
 }

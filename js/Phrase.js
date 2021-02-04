@@ -22,11 +22,13 @@
     checkLetter (letter) {
         const divElement = document.getElementById('phrase');
         const liPhrases = divElement.firstElementChild.children;
+        let isAMatch = false;
         for (let i = 0; i < liPhrases.length; i++) {
             if (letter.textContent === liPhrases[i].textContent) {
-               return true;
+                isAMatch = true;     
             }
         };
+        return isAMatch;
     }
     showMatchedLetter (letter) {
         const divElement = document.getElementById('phrase');
