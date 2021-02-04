@@ -4,12 +4,13 @@
 
 let game;
 
+//Click the start button and the game board resets and begins.
  document.getElementById('btn__reset').addEventListener('click', () => {
    game = new Game();
    game.resetDisplay();
    game.startGame();
  })
-
+//Click a button on the on screen keyboard to guess a letter. The interaction function will trigger a set of actions.
  document.getElementById('qwerty').addEventListener('click', (e) => {
      if (e.target.className === 'key') {
         game.handleInteraction(e.target);

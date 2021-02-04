@@ -6,6 +6,7 @@
     constructor(phrase) {
         this.phrase = phrase.toLowerCase();
     }
+    //Creates LI elements to display the phrase on the gameboard
     addPhraseToDisplay () {
         const divElement = document.getElementById('phrase');
         const ulElement = divElement.firstElementChild;
@@ -19,6 +20,7 @@
             }
         };
     }
+    //Checks if the submitted letter corresponds to the in game active phrase, then returns a boolean value
     checkLetter (letter) {
         const divElement = document.getElementById('phrase');
         const liPhrases = divElement.firstElementChild.children;
@@ -30,6 +32,7 @@
         };
         return isAMatch;
     }
+    //Displays the letter passed to it in the corresponding spot on the gameboard
     showMatchedLetter (letter) {
         const divElement = document.getElementById('phrase');
         const liPhrases = divElement.firstElementChild.children;

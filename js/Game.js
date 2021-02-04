@@ -8,16 +8,19 @@ class Game {
         this.phrases = this.createPhrases();
         this.activePhrase = null;
     }
+    //Begins game by selecting a random phrase and displaying it to the user
     startGame () {
         const startDiv = document.getElementById('overlay');
         startDiv.style.display = 'none';
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
     }
+    //Selects a random phrase from the phrases property
     getRandomPhrase () {
         let randomPhrase = this.phrases[Math.floor(Math.random() * this.phrases.length)];
         return randomPhrase;
     }
+    //Handles key selection and interacts with game board
     handleInteraction (keySelected) {
         keySelected.disabled = true;
         if (this.activePhrase.checkLetter(keySelected)) {
@@ -31,6 +34,7 @@ class Game {
             game.removeLife();
         }
     }
+    //Removes life from the score board, then adds a missed life to the counter. Finally verifies if all lives have been lost and triggers game over.
     removeLife () {
         let currentLife = document.querySelector("img[src='images/liveHeart.png']");
         currentLife.src = 'images/lostHeart.png';
@@ -39,6 +43,7 @@ class Game {
                 this.gameOver();
             }
     }
+    //Checks if the game has been won by matching the active phrases length witht the guessed answer length. Returns a boolean.
     checkForWin () {
         const solutionLength = this.activePhrase.phrase.length;
         const selectedLength = document.querySelectorAll('.show').length + document.querySelectorAll('.space').length
@@ -48,6 +53,7 @@ class Game {
             return false;
         }
 }
+    //Displays game over message conditionally based upon winning or losing.
     gameOver () {
         const startDiv = document.getElementById('overlay');
         let gameOverMessage = startDiv.firstElementChild.nextElementSibling;
@@ -60,6 +66,7 @@ class Game {
                 startDiv.classList = 'lose';
             }
     }
+    //Creates phrases for use in the game
     createPhrases () {
         const phrases = [
             new Phrase('shaken not stirred'),
@@ -70,6 +77,7 @@ class Game {
         ];
         return phrases;
     }
+    //Resets the gameboard display to begin a new game
     resetDisplay () {
         const divElement = document.getElementById('phrase');
         const liElements = divElement.firstElementChild.children;
