@@ -18,8 +18,18 @@ class Game {
         let randomPhrase = this.phrases[Math.floor(Math.random() * this.phrases.length)];
         return randomPhrase;
     }
-    handleInteraction () {
-
+    handleInteraction (keySelected) {
+        keySelected.disabled = true;
+        if (this.activePhrase.checkLetter(keySelected)) {
+            keySelected.className = 'chosen';
+            this.activePhrase.showMatchedLetter(keySelected);
+            if (game.checkForWin()) {
+                game.gameOver();
+            }
+        } else if (this.activePhrase.checkLetter(keySelected) !== true) {
+            keySelected.className = 'wrong';
+            game.removeLife();
+        }
     }
     removeLife () {
         let currentLife = document.querySelector("img[src='images/liveHeart.png']");

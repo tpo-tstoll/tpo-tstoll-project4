@@ -5,6 +5,7 @@
 let game;
 const keys = document.getElementById('qwerty');
 
+
  document.getElementById('btn__reset').addEventListener('click', () => {
     game = new Game();
     game.startGame();
@@ -12,7 +13,8 @@ const keys = document.getElementById('qwerty');
 
  keys.addEventListener('click', (e) => {
      if (e.target.className === 'key') {
-        game.activePhrase.showMatchedLetter(e.target);
-        game.checkForWin();
+/*         game.activePhrase.showMatchedLetter(e.target);
+        game.checkForWin(); */
+        game.handleInteraction(e.target);
      }
  })
