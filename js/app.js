@@ -12,10 +12,7 @@ let game;
  })
 //Click a button on the on screen keyboard to guess a letter. The interaction function will trigger a set of actions.
  document.getElementById('qwerty').addEventListener('click', (e) => {
-     if (e.target.className === 'key') {
-        game.handleInteraction(e.target);
-        console.log(e.target);
-     }
+   game.handleInteraction(e.target);
  })
  //Keyboard functionality in addition to onscreen qwerty.
  document.addEventListener('keyup', (e) => {

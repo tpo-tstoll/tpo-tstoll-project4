@@ -14,6 +14,7 @@ class Game {
         startDiv.style.display = 'none';
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
+        this.backgroundColor();
     }
     //Selects a random phrase from the phrases property
     getRandomPhrase () {
@@ -22,16 +23,18 @@ class Game {
     }
     //Handles key selection and interacts with game board
     handleInteraction (keySelected) {
-        keySelected.disabled = true;
-        if (this.activePhrase.checkLetter(keySelected) && keySelected.className === 'key') {
-            keySelected.className = 'chosen';
-            this.activePhrase.showMatchedLetter(keySelected);
-            if (game.checkForWin()) {
-                game.gameOver();
+        if (keySelected.className === 'key') {
+            keySelected.disabled = true;
+            if (this.activePhrase.checkLetter(keySelected)) {
+                keySelected.className = 'chosen';
+                this.activePhrase.showMatchedLetter(keySelected);
+                if (game.checkForWin()) {
+                    game.gameOver();
+                }
+            } else if (this.activePhrase.checkLetter(keySelected) === false) {
+                keySelected.className = 'wrong';
+                game.removeLife();
             }
-        } else if (this.activePhrase.checkLetter(keySelected) === false && keySelected.className === 'key') {
-            keySelected.className = 'wrong';
-            game.removeLife();
         }
     }
     //Removes life from the score board, then adds a missed life to the counter. Finally verifies if all lives have been lost and triggers game over.
@@ -105,5 +108,12 @@ class Game {
             }
         }
             return guess;
+    }
+    //Random backgound color generator
+    backgroundColor() {
+        let value = () => Math.floor(Math.random() * 256);
+        const color = `rgb(${value()}, ${value()}, ${value()})`;
+        document.body.style.backgroundColor = color;
+        document.querySelector('h2.header').style.color = 'white';
     }
 }
