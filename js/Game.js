@@ -23,13 +23,13 @@ class Game {
     //Handles key selection and interacts with game board
     handleInteraction (keySelected) {
         keySelected.disabled = true;
-        if (this.activePhrase.checkLetter(keySelected)) {
+        if (this.activePhrase.checkLetter(keySelected) && keySelected.className === 'key') {
             keySelected.className = 'chosen';
             this.activePhrase.showMatchedLetter(keySelected);
             if (game.checkForWin()) {
                 game.gameOver();
             }
-        } else if (this.activePhrase.checkLetter(keySelected) === false) {
+        } else if (this.activePhrase.checkLetter(keySelected) === false && keySelected.className === 'key') {
             keySelected.className = 'wrong';
             game.removeLife();
         }
@@ -93,5 +93,17 @@ class Game {
         for (let i = 0; i < livesLost.length; i++) {
             livesLost[i].src = 'images/liveHeart.png';
         }
+    }
+    //Converts keyboard input to corresponding html element
+    keyboardGuess(keyboardInput) {
+        let letter = keyboardInput
+        const buttons = document.querySelectorAll('div.keyrow > button');
+        let guess = '';
+        for (let i = 0; i < buttons.length; i++) { 
+            if (letter === buttons[i].textContent) {
+                guess =  buttons[i];
+            }
+        }
+            return guess;
     }
 }

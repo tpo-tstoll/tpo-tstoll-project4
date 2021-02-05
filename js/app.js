@@ -14,5 +14,12 @@ let game;
  document.getElementById('qwerty').addEventListener('click', (e) => {
      if (e.target.className === 'key') {
         game.handleInteraction(e.target);
+        console.log(e.target);
      }
  })
+ //Keyboard functionality in addition to onscreen qwerty.
+ document.addEventListener('keyup', (e) => {
+   if (/[a-z]/.test(e.key)  && document.getElementById('overlay').style.display === 'none') {
+      game.handleInteraction(game.keyboardGuess(e.key));
+   }
+})
