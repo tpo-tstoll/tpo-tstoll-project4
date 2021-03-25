@@ -12,23 +12,58 @@ class Game {
     async startGame () {
         const startDiv = document.getElementById('overlay');
         startDiv.style.display = 'none';
-        await console.log(this.activePhrase);
         this.activePhrase = await this.getQuote();
-        await console.log(this.activePhrase);
-        await this.activePhrase.addPhraseToDisplay();
+        await this.addPhraseToDisplay();
         this.backgroundColor();
+    }
+    //Creates LI elements to display the phrase on the gameboard
+    addPhraseToDisplay () {
+        const divElement = document.getElementById('phrase');
+        const ulElement = divElement.firstElementChild;
+        const caseChange = this.activePhrase.toLowerCase();
+        for (let i = 0; i < caseChange.length; i++) {
+            if (/[a-z]/.test(caseChange.charAt(i))) {
+                let li = `<li class="hide letter ${caseChange.charAt(i)}">${caseChange.charAt(i)}</li>`;
+                ulElement.insertAdjacentHTML('beforeend', li);
+            } else {
+                let li = `<li class="space"> </li>`;
+                ulElement.insertAdjacentHTML('beforeend', li);
+            }
+        };
+    }
+    //Checks if the submitted letter corresponds to the in game active phrase, then returns a boolean value
+    checkLetter (letter) {
+        const divElement = document.getElementById('phrase');
+        const liPhrases = divElement.firstElementChild.children;
+        let isAMatch = false;
+        for (let i = 0; i < liPhrases.length; i++) {
+            if (letter.textContent === liPhrases[i].textContent) {
+                isAMatch = true;     
+            }
+        };
+        return isAMatch;
+    }
+    //Displays the letter passed to it in the corresponding spot on the gameboard
+    showMatchedLetter (letter) {
+        const divElement = document.getElementById('phrase');
+        const liPhrases = divElement.firstElementChild.children;
+        for (let i = 0; i < liPhrases.length; i++) {
+            if (letter.textContent === liPhrases[i].textContent) {
+                liPhrases[i].className = 'show';
+            }
+        };
     }
     //Handles key selection and interacts with game board
     handleInteraction (keySelected) {
         if (keySelected.className === 'key') {
             keySelected.disabled = true;
-            if (this.activePhrase.checkLetter(keySelected)) {
+            if (this.checkLetter(keySelected)) {
                 keySelected.className = 'chosen';
-                this.activePhrase.showMatchedLetter(keySelected);
+                this.showMatchedLetter(keySelected);
                 if (game.checkForWin()) {
                     game.gameOver();
                 }
-            } else if (this.activePhrase.checkLetter(keySelected) === false) {
+            } else if (this.checkLetter(keySelected) === false) {
                 keySelected.className = 'wrong';
                 game.removeLife();
             }
@@ -45,7 +80,7 @@ class Game {
     }
     //Checks if the game has been won by matching the active phrases length witht the guessed answer length. Returns a boolean.
     checkForWin () {
-        const solutionLength = this.activePhrase.phrase.length;
+        const solutionLength = this.activePhrase.length;
         const selectedLength = document.querySelectorAll('.show').length + document.querySelectorAll('.space').length
         if (solutionLength === selectedLength) {
             return true;
