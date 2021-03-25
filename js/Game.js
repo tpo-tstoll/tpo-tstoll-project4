@@ -70,15 +70,11 @@ class Game {
             }
     }
     //Creates phrases for use in the game
-    createPhrases () {
-        const phrases = [
-            new Phrase('shaken not stirred'),
-            new Phrase('the dude abides'),
-            new Phrase('you had me at hello'),
-            new Phrase('to infinity and beyond'),
-            new Phrase('houston we have a problem')
-        ];
-        return phrases;
+    async getQuote () => {
+        let url = `https://api.quotable.io/random`
+        const response = await axios.get(url);
+        let quote = response.content;
+        return quote;
     }
     //Resets the gameboard display to begin a new game
     resetDisplay () {
