@@ -5,21 +5,16 @@
 class Game {
     constructor() {
         this.missed = 0;
-        this.phrases = this.createPhrases();
+        this.phrases = this.getQuote();
         this.activePhrase = null;
     }
     //Begins game by selecting a random phrase and displaying it to the user
     startGame () {
         const startDiv = document.getElementById('overlay');
         startDiv.style.display = 'none';
-        this.activePhrase = this.getRandomPhrase();
+        this.activePhrase = this.phrases;
         this.activePhrase.addPhraseToDisplay();
         this.backgroundColor();
-    }
-    //Selects a random phrase from the phrases property
-    getRandomPhrase () {
-        let randomPhrase = this.phrases[Math.floor(Math.random() * this.phrases.length)];
-        return randomPhrase;
     }
     //Handles key selection and interacts with game board
     handleInteraction (keySelected) {
@@ -71,9 +66,8 @@ class Game {
     }
     //Creates phrases for use in the game
     async getQuote () => {
-        let url = `https://api.quotable.io/random`
-        const response = await axios.get(url);
-        let quote = response.content;
+        const response = await fetch(`https://api.quotable.io/random`);
+        let quote = await response.content;
         return quote;
     }
     //Resets the gameboard display to begin a new game
