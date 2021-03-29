@@ -103,7 +103,7 @@ class Game {
     }
     //Creates phrases for use in the game
     async getQuote () {
-        const response = await fetch(`https://api.quotable.io/random`);
+        const response = await fetch(`https://api.quotable.io/random?maxLength=40`);
         let data = await response.json();
         let quote = await data.content;
         this.phrases = await quote;
